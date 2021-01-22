@@ -410,7 +410,7 @@
     }
 
     updateGameOverGraphics = () => {
-        drawRect(0, 0, canvas.width, canvas.height, backgroundColor);
+        drawRect(0, 0, canvas.width, canvas.height, 'BLACK');
         drawText('40px', 'Arial', 'WHITE', 'GAME OVER', 280, 300);
         drawText('40px', 'Arial', 'WHITE', `Broken bricks: ${game.brokenBricks}`, 10, 50);
         drawText('40px', 'Arial', 'WHITE', `Level: ${game.level}`, 10, 100);
