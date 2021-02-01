@@ -3,12 +3,13 @@ const { app, BrowserWindow } = require('electron')
 function createWindow () {
   const win = new BrowserWindow({
     width: 800,
-    height: 620,
+    height: 600,
     title: 'Breaking walls',
     titleBarStyle: 'hiddenInset',
     show: false,
     resizable: false,
     fullscreen: true,
+    acceptFirstMouse: true,
     webPreferences: {
       nodeIntegration: true
     }
