@@ -9,9 +9,8 @@ function createWindow () {
     show: false,
     resizable: false,
     fullscreen: true,
-    acceptFirstMouse: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false
     }
   })
 
