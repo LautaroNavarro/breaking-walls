@@ -6,7 +6,6 @@ function createWindow () {
     height: 600,
     title: 'Breaking walls',
     titleBarStyle: 'hiddenInset',
-    show: false,
     resizable: false,
     fullscreen: true,
     webPreferences: {
@@ -14,7 +13,8 @@ function createWindow () {
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile('index.html');
+  win.removeMenu();
   win.maximize();
 
 }

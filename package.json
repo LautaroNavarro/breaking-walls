@@ -1,7 +1,7 @@
 {
-  "name": "first-electron-game",
+  "name": "Breaking wall",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a breaking wall game",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
@@ -10,7 +10,7 @@
     "make": "electron-forge make"
   },
   "keywords": [],
-  "author": "",
+  "author": "Lautaro Navarro",
   "license": "ISC",
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.54",
