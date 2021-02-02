@@ -1,8 +1,26 @@
 
 class ButtonInput {
   active = false;
+  debounce = false;
+  debounce_time = null;
+  last_time_pressed = 0;
+
+  constructor (debounce, debounce_time) {
+    if (debounce) {
+      this.debounce = debounce;
+      this.debounce_time = debounce_time;
+    }
+  }
 
   setActive (down) {
+    if (down && this.debounce) {
+      let now = window.performance.now()
+      if (now - this.last_time_pressed > this.debounce_time) {
+        this.last_time_pressed = now;
+      } else {
+        return null;
+      }
+    }
 
     this.active = down;
 
@@ -14,11 +32,10 @@ class ButtonInput {
 class Controller {
 
   gamePadIndex = null;
-  space = new ButtonInput();
+  space = new ButtonInput(true, 200);
   left = new ButtonInput();
   right = new ButtonInput();
-  start = new ButtonInput();
-  updateLoop = null;
+  start = new ButtonInput(true, 200);
   keyMapping = {
     32: this.space,
     37: this.left,
@@ -32,15 +49,8 @@ class Controller {
     9: this.start,
   }
 
-  constructor () {
-    this.updateLoop = window.requestAnimationFrame(() => {
-      this.update();
-    });
-  }
-
   update () {
     if (this.gamePadIndex != null) {
-      console.log(this.gamePadIndex);
       for (let key in this.gamePadMapping) {
         if (navigator.getGamepads()[this.gamePadIndex].buttons.length > key) {
           this.gamePadMapping[key].setActive(
@@ -49,8 +59,6 @@ class Controller {
         }
       }
     }
-
-    this.updateLoop = window.requestAnimationFrame(() => this.update());
   }
 
   vibrate () {

@@ -87,7 +87,7 @@ window.addEventListener("load", function(event) {
   let controller = new Controller();
   let display    = new Display(document.querySelector("canvas"));
   let game       = new Game();
-  let engine     = new Engine(1000/60, render, update);
+  let engine     = new Engine(1000/60, render, update, () => {controller.update()});
 
   display.buffer.canvas.height = game.height;
   display.buffer.canvas.width = game.width;

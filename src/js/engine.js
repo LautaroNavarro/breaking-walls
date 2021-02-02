@@ -8,15 +8,19 @@ class Engine {
   updated = false;
   update = undefined;
   render = undefined;
+  callBack = () => {};
 
-  constructor (time_step, update, render) {
+  constructor (time_step, update, render, callBack) {
+    if (callBack) {
+      this.callBack = callBack;
+    }
     this.time_step = time_step;
     this.update = update;
     this.render = render;
   }
 
   run (time_stamp) {
-
+    this.callBack();
     this.accumulated_time += time_stamp - this.time;
     this.time = time_stamp;
     while(this.accumulated_time >= this.time_step) {
