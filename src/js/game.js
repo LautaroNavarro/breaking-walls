@@ -67,6 +67,8 @@ class Game {
     }
 
     cleanGame () {
+        this.paddle.x = 340;
+        this.paddle.y = 550;
         this.display_game = false;
         this.paused = false;
         this.backgroundColor = 'BLACK';

@@ -75,8 +75,11 @@ window.addEventListener("load", function(event) {
 
   let update = () => {
 
-    if (controller.left.active)  { game.paddle.moveLeft();  }
-    if (controller.right.active) { game.paddle.moveRight(); }
+    if (!game.paused) {
+      if (controller.left.active)  { game.paddle.moveLeft();  }
+      if (controller.right.active) { game.paddle.moveRight(); }
+    }
+
     if (controller.start.active) { game.pressStart(); controller.start.setActive(false); }
     if (controller.space.active) { game.changeBackgroundColor(); controller.space.setActive(false); }
 
