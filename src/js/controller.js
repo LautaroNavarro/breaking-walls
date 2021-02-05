@@ -1,28 +1,32 @@
 
 class ButtonInput {
   active = false;
-  debounce = false;
-  debounce_time = null;
-  last_time_pressed = 0;
+  individual_clicks = false;
+  enabled_click = true;
 
-  constructor (debounce, debounce_time) {
-    if (debounce) {
-      this.debounce = debounce;
-      this.debounce_time = debounce_time;
+  constructor (individual_clicks) {
+    if (individual_clicks) {
+      this.individual_clicks = individual_clicks;
     }
   }
 
   setActive (down) {
-    if (down && this.debounce) {
-      let now = window.performance.now()
-      if (now - this.last_time_pressed > this.debounce_time) {
-        this.last_time_pressed = now;
+    if (this.individual_clicks) {
+      if (down) {
+        if (this.enabled_click) {
+          this.active = down;
+          this.enabled_click = false;
+        }
       } else {
-        return null;
+        if (this.active == false) {
+          this.enabled_click = true;
+        }
+        this.active = down;
       }
+    } else {
+      this.active = down;
     }
 
-    this.active = down;
 
   }
 
@@ -32,10 +36,10 @@ class ButtonInput {
 class Controller {
 
   gamePadIndex = null;
-  space = new ButtonInput(true, 200);
+  space = new ButtonInput(true);
   left = new ButtonInput();
   right = new ButtonInput();
-  start = new ButtonInput(true, 200);
+  start = new ButtonInput(true);
   keyMapping = {
     32: this.space,
     37: this.left,
