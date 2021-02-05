@@ -166,7 +166,7 @@ class Game {
         }
     }
 
-    handleBallAndPaddleCollition () {
+    handleBallAndPaddleCollition (callback) {
         if (this.checkCircleAndRectCollition(
             this.ball.x,
             this.ball.y,
@@ -183,13 +183,16 @@ class Game {
                 this.level++;
                 this.initBricks();
             }
+            if (callback) {
+                callback();
+            }
             this.ball.speedX = (this.ball.x - (this.paddle.x + (this.paddle.width / 2))) / this.ball.maxAbsoluteSpeed;
             let newSpeedY = this.ball.maxAbsoluteSpeed - Math.abs((this.ball.x - (this.paddle.x + (this.paddle.width / 2))) / this.ball.maxAbsoluteSpeed);
             this.ball.speedY = newSpeedY * -1;
         }
     }
 
-    handleBrickCollition () {
+    handleBrickCollition (callback) {
         for (let i = 0; i < this.bricks.length; i++) {
             for (let x = 0; x < this.bricks[i].length; x++) {
                 if (this.bricks[i][x].resistence != 0) {
@@ -205,7 +208,9 @@ class Game {
                     if (collitionDetected) {
                         this.bricks[i][x].resistence = this.bricks[i][x].resistence - 1;
                         this.ball.speedY = this.ball.speedY * -1;
-
+                        if (callback) {
+                            callback();
+                        }
                         if (Math.random() > 0.5) {
                             new Audio('./media/sound/s1.mp3').play();
                         } else {
@@ -225,13 +230,13 @@ class Game {
         }
     }
 
-    update () {
+    update (callback) {
         if (this.paused == false && this.display_game == true) {
             this.paddle.update();
             this.paddle.velocity_x *= this.friction;
             this.updateBall();
-            this.handleBallAndPaddleCollition();
-            this.handleBrickCollition();
+            this.handleBallAndPaddleCollition(callback);
+            this.handleBrickCollition(callback);
             this.collideObject(this.paddle);
         } else if (this.display_menu && this.animationInterval == null) {
             this.animationInterval = setInterval( () => {this.initBricks()}, 1000 );

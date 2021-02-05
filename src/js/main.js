@@ -80,7 +80,7 @@ window.addEventListener("load", function(event) {
     if (controller.start.active) { game.pressStart(); controller.start.setActive(false); }
     if (controller.space.active) { game.changeBackgroundColor(); controller.space.setActive(false); }
 
-    game.update();
+    game.update(() => {controller.vibrate()});
 
   };
 
